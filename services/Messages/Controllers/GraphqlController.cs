@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.NewtonsoftJson;
 using GraphQL.Types;
-using Messages.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Messages
 {
@@ -41,5 +41,12 @@ namespace Messages
 
             return Ok(result);
         }
+    }
+
+    public class GraphQLQuery
+    {
+        public string OperationName { get; set; }
+        public string Query { get; set; }
+        public JObject Variables { get; set; }
     }
 }

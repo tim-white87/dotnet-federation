@@ -1,24 +1,20 @@
-﻿using GraphiQl;
+﻿using GraphQL.Server.Ui.Playground;
 using GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using StarWars;
+using GraphQL.NewtonsoftJson;
+using StarWars.Types;
+using Newtonsoft.Json;
 
 namespace Messages
 {
     public class Startup
     {
-        public const string AppS3BucketKey = "AppS3Bucket";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,10 +25,19 @@ namespace Messages
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            // Add S3 to the ASP.NET Core dependency injection framework.
-            services.AddAWSService<Amazon.S3.IAmazonS3>();
+            services.AddControllers()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<IDocumentWriter, DocumentWriter>();
+            services.AddSingleton<StarWarsData>();
+            services.AddSingleton<StarWarsQuery>();
+            services.AddSingleton<StarWarsMutation>();
+            services.AddSingleton<HumanType>();
+            services.AddSingleton<HumanInputType>();
+            services.AddSingleton<DroidType>();
+            services.AddSingleton<CharacterInterface>();
+            services.AddSingleton<EpisodeEnum>();
+            services.AddSingleton<ISchema, StarWarsSchema>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -42,7 +47,7 @@ namespace Messages
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseGraphiQl();
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
