@@ -1,52 +1,53 @@
-using System;
+using System.Net;
 using System.Threading.Tasks;
 using GraphQL;
-using GraphQL.NewtonsoftJson;
+using GraphQL.Http;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
-namespace Messages
+namespace account
 {
+    public class GraphQLRequest
+    {
+        public string Query { get; set; }
+        public string OperationName { get; set; }
+        public JObject Variables { get; set; }
+    }
+
     [Route("[controller]")]
     public class GraphQLController : Controller
     {
-        private readonly IDocumentExecuter _documentExecuter;
-        private readonly ISchema _schema;
+        private readonly IDocumentExecuter _executer;
+        private readonly IDocumentWriter _writer;
 
-        public GraphQLController(ISchema schema, IDocumentExecuter documentExecuter)
+        public GraphQLController(IDocumentExecuter executer, IDocumentWriter writer)
         {
-            _schema = schema;
-            _documentExecuter = documentExecuter;
+            _executer = executer;
+            _writer = writer;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
+        public async Task<IActionResult> Post(
+            [FromBody]GraphQLRequest request,
+            [FromServices]ISchema schema)
         {
-            if (query == null) { throw new ArgumentNullException(nameof(query)); }
-            var inputs = query.Variables?.ToInputs();
-            var executionOptions = new ExecutionOptions
+            var result = await _executer.ExecuteAsync(_ =>
             {
-                Schema = _schema,
-                Query = query.Query,
-                Inputs = inputs
-            };
+                _.Schema = schema;
+                _.OperationName = request.OperationName;
+                _.Query = request.Query;
+                _.Inputs = request.Variables.ToInputs();
+                _.ExposeExceptions = true;
+            });
 
-            var result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
+            var json = await _writer.WriteToStringAsync(result);
 
-            if (result.Errors?.Count > 0)
-            {
-                return BadRequest(result);
-            }
+            var httpResult = result.Errors?.Count > 0
+                ? HttpStatusCode.BadRequest
+                : HttpStatusCode.OK;
 
-            return Ok(result);
+            return Content(json, "application/json");
         }
-    }
-
-    public class GraphQLQuery
-    {
-        public string OperationName { get; set; }
-        public string Query { get; set; }
-        public JObject Variables { get; set; }
     }
 }

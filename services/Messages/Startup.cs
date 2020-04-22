@@ -1,15 +1,14 @@
-﻿using GraphQL.Server.Ui.Playground;
+﻿using System.Threading.Tasks;
 using GraphQL;
+using GraphQL.Http;
+using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
+using GraphQL.Utilities.Federation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StarWars;
-using GraphQL.NewtonsoftJson;
-using StarWars.Types;
-using Newtonsoft.Json;
 
 namespace Messages
 {
@@ -25,19 +24,46 @@ namespace Messages
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddMvc();
+
+            // GraphQL types
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
-            services.AddSingleton<StarWarsData>();
-            services.AddSingleton<StarWarsQuery>();
-            services.AddSingleton<StarWarsMutation>();
-            services.AddSingleton<HumanType>();
-            services.AddSingleton<HumanInputType>();
-            services.AddSingleton<DroidType>();
-            services.AddSingleton<CharacterInterface>();
-            services.AddSingleton<EpisodeEnum>();
-            services.AddSingleton<ISchema, StarWarsSchema>();
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+
+            // Apollo Federation Types
+            services.AddSingleton<AnyScalarGraphType>();
+            services.AddSingleton<ServiceGraphType>();
+
+            // Custom Types
+            services.AddSingleton<UsersStore>();
+            services.AddTransient<Query>();
+
+            services.AddTransient<ISchema>(s =>
+            {
+                var store = s.GetRequiredService<UsersStore>();
+
+                return FederatedSchema.For(@"
+                    extend type Query {
+                        me: User
+                    }
+
+                    type User @key(fields: ""id"") {
+                        id: ID!
+                        name: String
+                        username: String
+                        derp: String
+                    }
+                ", _ =>
+                {
+                    _.ServiceProvider = s;
+                    _.Types.Include<Query>();
+                    _.Types.For("User").ResolveReferenceAsync(context =>
+                    {
+                        var id = (string)context.Arguments["id"];
+                        return store.GetUserById(id);
+                    });
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -50,11 +76,27 @@ namespace Messages
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
             // app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+            // app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
     }
+
+    public class Query
+    {
+        private readonly UsersStore _store;
+
+        public Query(UsersStore store)
+        {
+            _store = store;
+        }
+
+        public Task<User> Me()
+        {
+            return _store.Me();
+        }
+    }
+
 }
