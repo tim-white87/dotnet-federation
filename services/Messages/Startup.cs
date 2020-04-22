@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GraphiQl;
+using GraphQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,13 +42,10 @@ namespace Messages
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseGraphiQl();
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
