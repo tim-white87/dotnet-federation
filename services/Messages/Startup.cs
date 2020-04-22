@@ -48,7 +48,7 @@ namespace Messages
                 app.UseDeveloperExceptionPage();
             }
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
