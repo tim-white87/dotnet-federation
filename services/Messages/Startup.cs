@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using GraphQL;
+﻿using GraphQL;
 using GraphQL.Http;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
+using Messages.GraphQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +12,15 @@ using Microsoft.Extensions.Hosting;
 
 namespace Messages
 {
+    /// <summary>
+    /// Startup: Called on app start
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Startup constructor
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,10 +28,13 @@ namespace Messages
 
         public static IConfiguration Configuration { get; private set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllers();
 
             // GraphQL types
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
@@ -36,66 +46,31 @@ namespace Messages
 
             // Custom Types
             services.AddSingleton<UsersStore>();
-            services.AddTransient<Query>();
-
-            services.AddTransient<ISchema>(s =>
-            {
-                var store = s.GetRequiredService<UsersStore>();
-
-                return FederatedSchema.For(@"
-                    extend type Query {
-                        me: User
-                    }
-
-                    type User @key(fields: ""id"") {
-                        id: ID!
-                        name: String
-                        username: String
-                        derp: String
-                    }
-                ", _ =>
-                {
-                    _.ServiceProvider = s;
-                    _.Types.Include<Query>();
-                    _.Types.For("User").ResolveReferenceAsync(context =>
-                    {
-                        var id = (string)context.Arguments["id"];
-                        return store.GetUserById(id);
-                    });
-                });
-            });
+            services.AddSingleton<ISchema>(c => MessagesGraphQL.BuildSchema(c));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+        /// </summary>
+        /// <param name="app">app instance</param>
+        /// <param name="env">env instance</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHttpsRedirection();
+            }
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-            // app.UseHttpsRedirection();
             app.UseRouting();
             // app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-        }
-    }
-
-    public class Query
-    {
-        private readonly UsersStore _store;
-
-        public Query(UsersStore store)
-        {
-            _store = store;
-        }
-
-        public Task<User> Me()
-        {
-            return _store.Me();
         }
     }
 
