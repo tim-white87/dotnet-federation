@@ -1,7 +1,8 @@
 ﻿using GraphQL;
-using GraphQL.Http;
 using GraphQL.Server.Ui.Playground;
+using GraphQL.SystemTextJson;
 using GraphQL.Types;
+using GraphQL.Server;
 using GraphQL.Utilities.Federation;
 using Messages.GraphQL;
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +48,9 @@ namespace Messages
             // Custom Types
             services.AddSingleton<UsersStore>();
             services.AddSingleton<ISchema>(c => MessagesGraphQL.BuildSchema(c));
+
+            services.AddGraphQL()
+                .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { });
         }
 
         /// <summary>
@@ -65,6 +69,7 @@ namespace Messages
                 app.UseHttpsRedirection();
             }
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+            app.UseGraphQL<ISchema>();
             app.UseRouting();
             // app.UseAuthorization();
             app.UseEndpoints(endpoints =>
