@@ -4,12 +4,13 @@ using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using GraphQL.Server;
 using GraphQL.Utilities.Federation;
-using Messages.GraphQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Messages.Data;
+using Messages.GraphQL;
 
 namespace Messages
 {
@@ -22,12 +23,14 @@ namespace Messages
         /// Startup constructor
         /// </summary>
         /// <param name="configuration"></param>
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public static IConfiguration Configuration { get; private set; }
+        public IWebHostEnvironment Environment { get; }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container
@@ -46,10 +49,16 @@ namespace Messages
             services.AddSingleton<ServiceGraphType>();
 
             // Custom Types
-            services.AddSingleton<UsersStore>();
-            services.AddSingleton<ISchema>(c => MessagesGraphQL.BuildSchema(c));
+            services.AddSingleton<DataStore>();
+            services.AddSingleton<Query>();
+            services.AddSingleton<MessageType>();
+            services.AddSingleton<ISchema>(c => GraphQL.Schema.BuildSchema(c));
 
-            services.AddGraphQL()
+            services.AddGraphQL(options =>
+            {
+                options.EnableMetrics = Environment.IsDevelopment();
+                options.ExposeExceptions = Environment.IsDevelopment();
+            })
                 .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { });
         }
 

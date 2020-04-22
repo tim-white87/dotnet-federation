@@ -1,6 +1,7 @@
 using System;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
+using Messages.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Messages.GraphQL
@@ -8,19 +9,20 @@ namespace Messages.GraphQL
     /// <summary>
     /// GraphQL Schema
     /// </summary>
-    public class MessagesGraphQL
+    public class Schema
     {
         private static IServiceProvider _service;
-        private static UsersStore _store;
+        private static DataStore _store;
 
         public static ISchema BuildSchema(IServiceProvider s)
         {
             _service = s;
-            _store = s.GetRequiredService<UsersStore>();
+            _store = s.GetRequiredService<DataStore>();
 
             return FederatedSchema.For(@"
                 extend type Query {
                     me: User
+                    messages: [Message]
                 }
 
                 type User @key(fields: ""id"") {
@@ -29,9 +31,16 @@ namespace Messages.GraphQL
                     username: String
                     derp: String
                 }
+
+                type Message @key(fields: ""id"") {
+                    id: ID!
+                    title: String
+                    content: String
+                }
             ", _ =>
             {
                 _.ServiceProvider = _service;
+                _.Types.Include<MessageType>();
                 _.Types.Include<Query>();
                 _.Types.For("User").ResolveReferenceAsync(context =>
                 {
