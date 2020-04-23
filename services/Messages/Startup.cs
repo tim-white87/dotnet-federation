@@ -51,6 +51,7 @@ namespace Messages
             // Custom Types
             services.AddSingleton<DataStore>();
             services.AddSingleton<Query>();
+            services.AddSingleton<UserType>();
             services.AddSingleton<MessageType>();
             services.AddSingleton<ISchema>(c => GraphQL.Schema.BuildSchema(c));
 

@@ -29,6 +29,7 @@ namespace Messages.GraphQL
                 title: String
                 content: String
             }";
+
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
