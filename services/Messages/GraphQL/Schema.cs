@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
 using Messages.Data;
@@ -24,25 +25,10 @@ namespace Messages.GraphQL
             _service = serviceProvider;
             _store = serviceProvider.GetRequiredService<DataStore>();
 
-            return FederatedSchema.For(@"
-                extend type Query {
-                    me: User
-                    messages: [Message]
-                }
-
-                type User @key(fields: ""id"") {
-                    id: ID!
-                    name: String
-                    username: String
-                    derp: String
-                }
-
-                type Message @key(fields: ""id"") {
-                    id: ID!
-                    title: String
-                    content: String
-                }
-            ", _ =>
+            return FederatedSchema.For(String.Join("", new List<string>{
+                UserType.Schema,
+                MessageType.Schema
+            }), _ =>
             {
                 _.ServiceProvider = _service;
                 _.Types.Include<Query>();

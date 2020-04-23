@@ -19,6 +19,17 @@ namespace Messages.GraphQL
     [GraphQLMetadata("Message", IsTypeOf = typeof(Message))]
     public class MessageType
     {
+
+        public static readonly string Schema = @"
+            extend type Query {
+                messages: [Message]
+            }
+
+            type Message @key(fields: ""id"") {
+                id: ID!
+                title: String
+                content: String
+            }";
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
