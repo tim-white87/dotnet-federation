@@ -14,10 +14,15 @@ namespace Messages.GraphQL
         private static IServiceProvider _service;
         private static DataStore _store;
 
-        public static ISchema BuildSchema(IServiceProvider s)
+        /// <summary>
+        /// Builds the federated schema
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        public static ISchema BuildSchema(IServiceProvider serviceProvider)
         {
-            _service = s;
-            _store = s.GetRequiredService<DataStore>();
+            _service = serviceProvider;
+            _store = serviceProvider.GetRequiredService<DataStore>();
 
             return FederatedSchema.For(@"
                 extend type Query {
