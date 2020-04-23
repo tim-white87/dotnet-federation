@@ -45,13 +45,9 @@ namespace Messages.GraphQL
             ", _ =>
             {
                 _.ServiceProvider = _service;
-                _.Types.Include<MessageType>();
                 _.Types.Include<Query>();
-                _.Types.For("User").ResolveReferenceAsync(context =>
-                {
-                    var id = (string)context.Arguments["id"];
-                    return _store.GetUserById(id);
-                });
+                _.Types.Include<MessageType>();
+                _.Types.Include<UserType>();
             });
         }
     }

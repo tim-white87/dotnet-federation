@@ -19,7 +19,7 @@ namespace Messages.GraphQL
     [GraphQLMetadata("Message", IsTypeOf = typeof(Message))]
     public class MessageType
     {
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
         /// MessageType Constructor
