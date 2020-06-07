@@ -1,7 +1,7 @@
 using System;
 using GraphQL;
 
-namespace Messages.GraphQL
+namespace user.GraphQL
 {
     /// <summary>
     /// User anemic model
@@ -28,7 +28,6 @@ namespace Messages.GraphQL
                 id: ID!
                 name: String
                 username: String
-                derp: String
             }";
 
         private readonly IServiceProvider _serviceProvider;

@@ -2,6 +2,14 @@
 version: '3.4'
 
 services:
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD
+
   identity:
     image: identity
     build:
@@ -9,12 +17,19 @@ services:
     ports:
       - 5000:80
 
+  user:
+    image: user
+    build:
+      context: ./src/user
+    ports:
+      - 5010:80
+
   messages:
     image: messages
     build:
       context: ./src/messages
     ports:
-      - 5001:80
+      - 5020:80
 
   gateway:
     image: gateway
