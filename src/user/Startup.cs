@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using user.GraphQL;
+using Microsoft.EntityFrameworkCore;
+using user.Data;
 
 namespace user
 {
@@ -37,6 +39,9 @@ namespace user
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
 
             // GraphQL types

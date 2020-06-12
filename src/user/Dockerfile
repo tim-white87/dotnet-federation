@@ -8,7 +8,6 @@ WORKDIR /src/user
 COPY ["user.csproj", "user.csproj"]
 RUN dotnet restore
 COPY . .
-RUN dotnet build -c Release -o /app/build --no-restore
 
 FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish

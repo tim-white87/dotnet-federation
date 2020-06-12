@@ -1,16 +1,15 @@
 using System;
 using GraphQL;
+using Microsoft.AspNetCore.Identity;
 
 namespace user.GraphQL
 {
     /// <summary>
     /// User anemic model
     /// </summary>
-    public class User
+    public class User : IdentityUser
     {
-        public string Id { get; set; }
         public string Name { get; set; }
-        public string Username { get; set; }
     }
 
     /// <summary>
@@ -60,6 +59,6 @@ namespace user.GraphQL
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public string Username(User user) => user.Username;
+        public string Username(User user) => user.UserName;
     }
 }
