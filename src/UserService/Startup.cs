@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using user.GraphQL;
 using Microsoft.EntityFrameworkCore;
 using user.Data;
+using UserService.User;
 
-namespace user
+namespace UserService
 {
     /// <summary>
     /// Startup: Called on app start
@@ -53,6 +53,7 @@ namespace user
             services.AddSingleton<ServiceGraphType>();
 
             // Custom Types
+            services.AddSingleton<UserQuery>();
             services.AddSingleton<UserType>();
             services.AddSingleton(c => GraphQL.Schema.BuildSchema(c));
 

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using user.GraphQL;
+using UserService.User;
 
 namespace user.Data
 {

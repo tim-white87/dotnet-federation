@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
 using Microsoft.Extensions.DependencyInjection;
+using UserService.User;
 
-namespace user.GraphQL
+namespace UserService.GraphQL
 {
     /// <summary>
     /// GraphQL Schema
@@ -23,10 +24,11 @@ namespace user.GraphQL
             _service = serviceProvider;
 
             return FederatedSchema.For(string.Join("", new List<string>{
-                UserType.Schema
+                UserSchema.Schema
             }), _ =>
             {
                 _.ServiceProvider = _service;
+                _.Types.Include<UserQuery>();
                 _.Types.Include<UserType>();
             });
         }

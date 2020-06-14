@@ -1,34 +1,14 @@
 using System;
 using GraphQL;
-using Microsoft.AspNetCore.Identity;
 
-namespace user.GraphQL
+namespace UserService.User
 {
-    /// <summary>
-    /// User anemic model
-    /// </summary>
-    public class User : IdentityUser
-    {
-        public string Name { get; set; }
-    }
-
     /// <summary>
     /// User Resolver
     /// </summary>
     [GraphQLMetadata("User", IsTypeOf = typeof(User))]
     public class UserType
     {
-        public static readonly string Schema = @"
-            extend type Query {
-                me: User
-            }
-
-            type User @key(fields: ""id"") {
-                id: ID!
-                name: String
-                username: String
-            }";
-
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
