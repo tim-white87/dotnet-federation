@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using user.Data;
 using UserService.User;
+using UserService.GraphQl;
 
 namespace UserService
 {
@@ -53,9 +54,8 @@ namespace UserService
             services.AddSingleton<ServiceGraphType>();
 
             // Custom Types
-            services.AddSingleton<UserQuery>();
-            services.AddSingleton<UserType>();
-            services.AddSingleton(c => GraphQL.Schema.BuildSchema(c));
+            services.AddSingleton<Query>();
+            services.AddSingleton(c => GraphQl.Schema.BuildSchema(c));
 
             services.AddGraphQL(options =>
             {

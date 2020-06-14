@@ -5,7 +5,7 @@ using GraphQL.Utilities.Federation;
 using Microsoft.Extensions.DependencyInjection;
 using UserService.User;
 
-namespace UserService.GraphQL
+namespace UserService.GraphQl
 {
     /// <summary>
     /// GraphQL Schema
@@ -28,8 +28,7 @@ namespace UserService.GraphQL
             }), _ =>
             {
                 _.ServiceProvider = _service;
-                _.Types.Include<UserQuery>();
-                _.Types.Include<UserType>();
+                _.Types.Include<Query>();
             });
         }
     }

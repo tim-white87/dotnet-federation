@@ -7,10 +7,6 @@ namespace UserService.User
                 me: User
             }
 
-            extend type Mutation {
-                register: User
-            }
-
             type User @key(fields: ""id"") {
                 id: ID!
                 name: String
