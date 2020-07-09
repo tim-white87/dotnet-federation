@@ -15,7 +15,7 @@ services:
   user:
     image: dotnet-federation/user
     build:
-      context: ./src/user
+      context: ./src/UserService
     depends_on:
       - db
     ports:

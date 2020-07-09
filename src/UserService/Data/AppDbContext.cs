@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using UserService.User;
 
-namespace user.Data
+namespace UserService.Data
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserService.User.User> Users { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options) { }
     }
