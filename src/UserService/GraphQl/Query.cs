@@ -10,9 +10,9 @@ namespace UserService.GraphQl
     {
         // TODO: can I use composition here?
         [GraphQLMetadata("me")]
-        public User.User GetUser()
+        public UserModel GetUser()
         {
-            return new User.User
+            return new UserModel
             {
                 Name = "Timmy",
                 UserName = "tim"

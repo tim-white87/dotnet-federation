@@ -1,17 +1,13 @@
-using GraphQL;
 using GraphQL.Server.Ui.Playground;
-using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using GraphQL.Server;
-using GraphQL.Utilities.Federation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using user.Data;
-using UserService.User;
+using UserService.Data;
 using UserService.GraphQl;
 
 namespace UserService
@@ -44,19 +40,7 @@ namespace UserService
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-
-            // GraphQL types
-            services.AddSingleton<IDocumentWriter, DocumentWriter>();
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-
-            // Apollo Federation Types
-            services.AddSingleton<AnyScalarGraphType>();
-            services.AddSingleton<ServiceGraphType>();
-
-            // Custom Types
-            services.AddSingleton<Query>();
-            services.AddSingleton(c => GraphQl.Schema.BuildSchema(c));
-
+            services.AddSchema();
             services.AddGraphQL(options =>
             {
                 options.EnableMetrics = Environment.IsDevelopment();

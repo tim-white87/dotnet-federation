@@ -10,19 +10,19 @@ services:
       - POSTGRES_PASSWORD
     volumes:
       - db:/var/lib/postgresql/
-      - ./src/user/Data/Migrations/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./src/UserService/Data/Migrations/init_db.sql:/docker-entrypoint-initdb.d/init_user_service_db.sql
 
-  user:
+  user_service:
     image: dotnet-federation/user
     build:
-      context: ./src/user
+      context: ./src/UserService
     depends_on:
       - db
     ports:
       - 5000:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - 'DOTNET_ConnectionStrings__DefaultConnection=Host=db:5432;Database=user;Username=postgres;Password=password'
+      - 'DOTNET_ConnectionStrings__DefaultConnection=Host=db:5432;Database=user_service;Username=postgres;Password=${POSTGRES_PASSWORD}'
 
   gateway:
     image: dotnet-federation/gateway
