@@ -3,7 +3,7 @@ using GraphQL;
 
 namespace Identity.API.Identity
 {
-    [GraphQLMetadata("Identity", IsTypeOf = typeof(IdentityViewModel))]
+    [GraphQLMetadata("Account", IsTypeOf = typeof(IdentityViewModel))]
     public class IdentityType
     {
         private readonly IServiceProvider _serviceProvider;

@@ -32,6 +32,7 @@ namespace Identity.API.GraphQl
             services.AddSingleton<ServiceGraphType>();
 
             // Custom Types
+            services.AddSingleton<Query>();
             services.AddSingleton<IdentityType>();
         }
 
@@ -47,6 +48,7 @@ namespace Identity.API.GraphQl
             }), _ =>
             {
                 _.ServiceProvider = serviceProvider;
+                _.Types.Include<Query>();
                 _.Types.Include<IdentityType>();
             });
         }
