@@ -6,17 +6,6 @@ namespace Identity.API.Identity
     [GraphQLMetadata("Account", IsTypeOf = typeof(AccountViewModel))]
     public class AccountType
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        /// <summary>
-        /// IdentityType constructor
-        /// </summary>
-        /// <param name="sp">Service Provider</param>
-        public AccountType(IServiceProvider sp)
-        {
-            _serviceProvider = sp;
-        }
-
         /// <summary>
         /// Id field resolver
         /// </summary>
