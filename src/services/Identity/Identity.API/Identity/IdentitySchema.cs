@@ -7,7 +7,7 @@ namespace Identity.API.Identity
                 identity: Identity
             }
 
-            type Identity @key(fields: ""id"") {
+            type Identity {
                 me: Account
             }
             

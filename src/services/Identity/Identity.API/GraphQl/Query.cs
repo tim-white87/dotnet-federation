@@ -3,13 +3,12 @@ using Identity.API.Identity;
 
 namespace Identity.API.GraphQl
 {
-    public sealed class Query
+    public class Query
     {
         [GraphQLMetadata("identity")]
-        public IdentityQueries Identity()
+        public IdentityType Identity()
         {
-            return new IdentityQueries();
+            return new IdentityType();
         }
     }
-
 }
