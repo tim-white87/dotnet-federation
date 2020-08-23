@@ -1,18 +1,19 @@
 using System;
 using GraphQL;
+using Identity.API.User;
 
-namespace Identity.API.Identity
+namespace Identity.API.GraphQl.Identity
 {
     public class IdentityMutation
     {
         [GraphQLMetadata("login")]
-        public AccountViewModel Login()
+        public UserModel Login()
         {
             throw new NotImplementedException();
         }
 
         [GraphQLMetadata("register")]
-        public AccountViewModel Register()
+        public UserModel Register()
         {
             throw new NotImplementedException();
         }

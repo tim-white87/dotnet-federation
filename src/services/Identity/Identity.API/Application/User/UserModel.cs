@@ -1,6 +1,6 @@
-namespace Identity.API.Identity
+namespace Identity.API.User
 {
-    public class AccountViewModel
+    public class UserModel
     {
         public string Id { get; set; }
         public string Username { get; set; }

@@ -1,9 +1,9 @@
-using System;
 using GraphQL;
+using Identity.API.User;
 
-namespace Identity.API.Identity
+namespace Identity.API.GraphQl.Identity
 {
-    [GraphQLMetadata("Account", IsTypeOf = typeof(AccountViewModel))]
+    [GraphQLMetadata("User", IsTypeOf = typeof(UserModel))]
     public class AccountType
     {
         /// <summary>
@@ -11,20 +11,20 @@ namespace Identity.API.Identity
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        public string Id(AccountViewModel identity) => identity.Id;
+        public string Id(UserModel identity) => identity.Id;
 
         /// <summary>
         /// Name field resolver
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        public string Name(AccountViewModel identity) => identity.Name;
+        public string Name(UserModel identity) => identity.Name;
 
         /// <summary>
         /// Username field resolver
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        public string Username(AccountViewModel identity) => identity.Username;
+        public string Username(UserModel identity) => identity.Username;
     }
 }

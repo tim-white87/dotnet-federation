@@ -1,17 +1,10 @@
 using System;
-using Identity.API.Identity;
+using Identity.API.GraphQl.Identity;
 
 namespace Identity.API.GraphQl
 {
     public class Query
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public Query(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-        public IdentityQuery Identity() => new IdentityQuery(_serviceProvider);
+        public IdentityQuery Identity() => new IdentityQuery();
     }
 }

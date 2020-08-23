@@ -4,14 +4,14 @@ using GraphQL;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
-using Identity.API.Identity;
+using Identity.API.GraphQl.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.API.GraphQl
 {
-    public static class RootSchema
+    public static class Schema
     {
-        public static void AddRootSchema(this IServiceCollection services)
+        public static void AddSchema(this IServiceCollection services)
         {
             services.AddSchemaTypes();
             services.AddSingleton(c => BuildSchema(c));

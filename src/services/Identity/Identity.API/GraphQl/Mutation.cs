@@ -1,9 +1,9 @@
-using Identity.API.Identity;
+using Identity.API.GraphQl.Identity;
 
 namespace Identity.API.GraphQl
 {
     public class Mutation
     {
-        public IdentityMutation IdentityMutation() => new IdentityMutation();
+        public IdentityMutation IdentityOps() => new IdentityMutation();
     }
 }

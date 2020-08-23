@@ -2,6 +2,7 @@ using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using Identity.API.GraphQl;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,13 +26,14 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddRootSchema();
+            services.AddSchema();
             services.AddGraphQL(options =>
             {
                 options.EnableMetrics = Environment.IsDevelopment();
                 options.ExposeExceptions = Environment.IsDevelopment();
             })
                 .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { });
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

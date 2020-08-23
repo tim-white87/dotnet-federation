@@ -1,4 +1,4 @@
-namespace Identity.API.Identity
+namespace Identity.API.GraphQl.Identity
 {
     public class IdentitySchema
     {
@@ -6,21 +6,21 @@ namespace Identity.API.Identity
             extend type Query {
                 identity: Identity
             }
-            
+
             extend type Mutation {
-                identityMutation: IdentityMutation
+                identityOps: IdentityOps
             }
 
             type Identity {
-                me: Account
+                me: User
             }
 
-            type IdentityMutation {
-                login: Account
-                register: Account
+            type IdentityOps {
+                login: User
+                register: User
             }
             
-            type Account @key(fields: ""id""){
+            type User @key(fields: ""id""){
                 id: ID!
                 name: String
                 username: String
