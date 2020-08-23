@@ -3,11 +3,11 @@ using GraphQL;
 
 namespace Identity.API.Identity
 {
-    public class IdentityType
+    public class IdentityQuery
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public IdentityType(IServiceProvider serviceProvider)
+        public IdentityQuery(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

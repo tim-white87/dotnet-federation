@@ -1,4 +1,3 @@
-using System;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;

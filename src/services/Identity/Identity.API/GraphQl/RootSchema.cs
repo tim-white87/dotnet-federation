@@ -33,8 +33,11 @@ namespace Identity.API.GraphQl
 
             // Custom Types
             services.AddSingleton<Query>();
-            services.AddSingleton<IdentityType>();
+            services.AddSingleton<IdentityQuery>();
             services.AddSingleton<AccountType>();
+
+            services.AddSingleton<Mutation>();
+            services.AddSingleton<IdentityMutation>();
         }
 
         /// <summary>
@@ -49,9 +52,13 @@ namespace Identity.API.GraphQl
             }), _ =>
             {
                 _.ServiceProvider = serviceProvider;
+
                 _.Types.Include<Query>();
-                _.Types.Include<IdentityType>();
+                _.Types.Include<IdentityQuery>();
                 _.Types.Include<AccountType>();
+
+                _.Types.Include<Mutation>();
+                _.Types.Include<IdentityMutation>();
             });
         }
     }

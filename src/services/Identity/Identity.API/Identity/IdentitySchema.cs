@@ -6,9 +6,18 @@ namespace Identity.API.Identity
             extend type Query {
                 identity: Identity
             }
+            
+            extend type Mutation {
+                identityMutation: IdentityMutation
+            }
 
             type Identity {
                 me: Account
+            }
+
+            type IdentityMutation {
+                login: Account
+                register: Account
             }
             
             type Account @key(fields: ""id""){

@@ -12,6 +12,6 @@ namespace Identity.API.GraphQl
             _serviceProvider = serviceProvider;
         }
 
-        public IdentityType Identity() => new IdentityType(_serviceProvider);
+        public IdentityQuery Identity() => new IdentityQuery(_serviceProvider);
     }
 }
