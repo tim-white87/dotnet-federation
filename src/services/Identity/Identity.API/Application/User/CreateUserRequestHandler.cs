@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Identity.Infrastructure.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -7,9 +8,9 @@ namespace Identity.API.Application.User
 {
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, bool>
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CreateUserRequestHandler(UserManager<IdentityUser> userManager)
+        public CreateUserRequestHandler(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
