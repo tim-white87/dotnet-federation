@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Identity.Infrastructure.Extensions;
 
 namespace Identity.API
 {
@@ -26,6 +27,7 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddIdentityDbContext();
             services.AddSchema();
             services.AddGraphQL(options =>
             {
