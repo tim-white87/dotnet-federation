@@ -10,12 +10,11 @@ namespace Identity.Infrastructure.Extensions
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddIdentityDbContext(this IServiceCollection services, string connectionString = null)
+        public static void AddIdentityDbContext(this IServiceCollection services, string connectionString = null)
         {
             connectionString = string.IsNullOrEmpty(connectionString) ? App.Configuration.GetConnectionString(Database.IdentityConnectionStringKey) : connectionString;
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseNpgsql(connectionString));
-            return services;
         }
     }
 }

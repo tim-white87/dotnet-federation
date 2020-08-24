@@ -1,25 +1,30 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Identity.Infrastructure.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.API.Application.User
 {
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, bool>
     {
-        private readonly UserManager<AppUser> _userManager;
+        private IServiceScopeFactory _serviceScopeFactory;
 
-        public CreateUserRequestHandler(UserManager<AppUser> userManager)
+        public CreateUserRequestHandler(IServiceScopeFactory serviceScopeFactory)
         {
-            _userManager = userManager;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         public async Task<bool> Handle(CreateUserRequest request, CancellationToken cancellationToken)
         {
-            var res = await _userManager.CreateAsync(request.User, request.Password);
-            return res.Succeeded;
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+                var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+                var res = await userManager.CreateAsync(request.User, request.Password);
+                return res.Succeeded;
+            }
         }
     }
 }

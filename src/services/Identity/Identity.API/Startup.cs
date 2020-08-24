@@ -30,7 +30,7 @@ namespace Identity.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMediatR(typeof(Startup));
             services.AddIdentityDbContext();
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
@@ -42,7 +42,7 @@ namespace Identity.API
                 options.ExposeExceptions = Environment.IsDevelopment();
             })
                 .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { });
-            services.AddMediatR(typeof(Startup));
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
