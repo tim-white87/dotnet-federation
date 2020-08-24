@@ -1,7 +1,10 @@
+using Identity.Infrastructure.Models;
+using MediatR;
+
 namespace Identity.API.Application.User
 {
-    public class UserLoginRequest
+    public class LoginUserRequest : IRequest<AppUser>
     {
-        
+
     }
 }

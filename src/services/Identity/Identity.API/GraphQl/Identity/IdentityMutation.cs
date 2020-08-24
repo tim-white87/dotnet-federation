@@ -1,21 +1,25 @@
-using System;
+using System.Threading.Tasks;
 using GraphQL;
-using Identity.API.User;
+using Identity.API.Application.User;
+using Identity.Infrastructure.Models;
+using MediatR;
 
 namespace Identity.API.GraphQl.Identity
 {
     public class IdentityMutation
     {
-        [GraphQLMetadata("login")]
-        public UserModel Login()
+        private readonly IMediator _mediator;
+
+        public IdentityMutation(IMediator mediator)
         {
-            throw new NotImplementedException();
+            _mediator = mediator;
         }
 
+
+        [GraphQLMetadata("login")]
+        public async Task<AppUser> Login() => await _mediator.Send(new LoginUserRequest());
+
         [GraphQLMetadata("register")]
-        public UserModel Register()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> Register() => await _mediator.Send(new CreateUserRequest());
     }
 }

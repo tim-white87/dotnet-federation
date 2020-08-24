@@ -1,9 +1,19 @@
+using System;
+using GraphQL.Utilities;
 using Identity.API.GraphQl.Identity;
+using MediatR;
 
 namespace Identity.API.GraphQl
 {
     public class Mutation
     {
-        public IdentityMutation IdentityOps() => new IdentityMutation();
+        private readonly IServiceProvider _serviceProvider;
+
+        public Mutation(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public IdentityMutation IdentityOps() => new IdentityMutation(_serviceProvider.GetRequiredService<IMediator>());
     }
 }

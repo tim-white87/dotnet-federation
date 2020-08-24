@@ -9,6 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Identity.Infrastructure.Extensions;
+using Identity.Infrastructure.Models;
+using Microsoft.AspNetCore.Identity;
+using Identity.Infrastructure.Data;
+using Identity.API.Application.User;
 
 namespace Identity.API
 {
@@ -28,6 +32,9 @@ namespace Identity.API
         {
             services.AddControllers();
             services.AddIdentityDbContext();
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
             services.AddSchema();
             services.AddGraphQL(options =>
             {
