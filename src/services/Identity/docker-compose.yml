@@ -12,8 +12,23 @@ services:
       - db:/var/lib/postgresql/
       - ./Identity.Infrastructure/Migrations/init_db.sql:/docker-entrypoint-initdb.d/init_identity_db.sql
 
-  identity:
-    image: dotnet-federation/user
+  identity_infrastructure:
+    image: dotnet-federation/identity/infrastructure
+    build:
+      context: ./Identity.Infrastructure
+    depends_on:
+      - db
+    entrypoint:
+      - sh
+      - -c
+    command: wait-for db:5432 -- dotnet-ef database update
+    environment:
+      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db:5432;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
+    volumes:
+      - ../../scripts/wait-for.sh:/wait-for.sh
+
+  identity_api:
+    image: dotnet-federation/identity/api
     build:
       context: .
       dockerfile: ./Identity.API/Dockerfile

@@ -1,5 +1,1 @@
-
-CREATE USER owner;
-
 CREATE DATABASE identity;
-GRANT ALL PRIVILEGES ON DATABASE identity TO owner;
