@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD
+    volumes:
+      - db:/var/lib/postgresql/
+      - ./Identity.Infrastructure/Migrations/init_db.sql:/docker-entrypoint-initdb.d/init_identity_db.sql
+
+  identity:
+    image: dotnet-federation/user
+    build:
+      context: .
+      dockerfile: ./Identity.API/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 5000:80
+      - 5001:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db:5432;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
+
+volumes:
+  db:
