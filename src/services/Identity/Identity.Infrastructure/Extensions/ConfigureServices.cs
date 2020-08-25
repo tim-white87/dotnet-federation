@@ -1,4 +1,3 @@
-using System;
 using Identity.Infrastructure.Constants;
 using Identity.Infrastructure.Data;
 using Identity.Infrastructure.Helpers;
