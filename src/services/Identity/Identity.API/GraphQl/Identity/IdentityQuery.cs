@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GraphQL;
 using Identity.API.Application.User;
@@ -17,5 +18,11 @@ namespace Identity.API.GraphQl.Identity
 
         [GraphQLMetadata("me")]
         public async Task<AppUser> GetMe() => await _mediator.Send(new GetUserRequest());
+
+        public bool Test(string input)
+        {
+            Console.WriteLine(input);
+            return false;
+        }
     }
 }

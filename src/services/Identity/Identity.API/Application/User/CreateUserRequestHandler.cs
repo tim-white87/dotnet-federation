@@ -21,7 +21,12 @@ namespace Identity.API.Application.User
             using var scope = _serviceScopeFactory.CreateScope();
             var scopedServices = scope.ServiceProvider;
             var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
-            var res = await userManager.CreateAsync(request.User, request.Password);
+            // TODO: automap
+            var user = new AppUser
+            {
+                UserName = request.Username
+            };
+            var res = await userManager.CreateAsync(user, request.Password);
             return res.Succeeded;
         }
     }

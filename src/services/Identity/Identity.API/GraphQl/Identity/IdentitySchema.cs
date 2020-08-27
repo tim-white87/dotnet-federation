@@ -13,11 +13,17 @@ namespace Identity.API.GraphQl.Identity
 
             type Identity {
                 me: User
+                test(input: String): Boolean
             }
 
             type IdentityOps {
                 login: User
-                register: User
+                register(input: String!): User
+            }
+
+            type RegisterInputType {
+                username: String
+                password: String
             }
             
             type User @key(fields: ""id""){

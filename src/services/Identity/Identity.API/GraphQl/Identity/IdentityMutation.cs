@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GraphQL;
 using Identity.API.Application.User;
@@ -15,11 +16,15 @@ namespace Identity.API.GraphQl.Identity
             _mediator = mediator;
         }
 
-
         [GraphQLMetadata("login")]
         public async Task<AppUser> Login() => await _mediator.Send(new LoginUserRequest());
 
         [GraphQLMetadata("register")]
-        public async Task<bool> Register() => await _mediator.Send(new CreateUserRequest());
+        public bool Register()
+        {
+            Console.WriteLine("register");
+            return false;
+            // return await _mediator.Send(new CreateUserRequest());
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace Identity.API.GraphQl
 
             services.AddSingleton<Mutation>();
             services.AddSingleton<IdentityMutation>();
+            services.AddSingleton<RegisterInputType>();
         }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace Identity.API.GraphQl
 
                 _.Types.Include<Mutation>();
                 _.Types.Include<IdentityMutation>();
+                _.Types.Include<RegisterInputType>();
             });
         }
     }
