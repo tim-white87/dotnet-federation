@@ -1,3 +1,4 @@
+using System;
 using Identity.Infrastructure.Constants;
 using Identity.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace Identity.Infrastructure.Data
         public IdentityDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
-            var connectionString = App.Configuration.GetConnectionString(Database.IdentityConnectionStringKey);
+            var connectionString = Environment.GetEnvironmentVariable(Database.IdentityConnectionStringEnvVarKey) ?? App.Configuration.GetConnectionString(Database.IdentityConnectionStringKey);
             optionsBuilder.UseNpgsql(connectionString);
             return new IdentityDbContext(optionsBuilder.Options);
         }

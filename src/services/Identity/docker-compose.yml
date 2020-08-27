@@ -19,9 +19,12 @@ services:
       - db
     volumes:
       - ../../../scripts/wait-for.sh:/wait-for.sh
-    command: sh -c "/wait-for.sh db:5432 -- dotnet --help"
+    entrypoint:
+      - sh
+      - -c
+      - '/wait-for.sh db:5432 -- dotnet ef database update'
     environment:
-      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db:5432;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
+      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
 
   identity_api:
     image: dotnet-federation/identity/api
@@ -35,7 +38,7 @@ services:
       - 5001:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db:5432;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
+      - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
 
 volumes:
   db: {}
