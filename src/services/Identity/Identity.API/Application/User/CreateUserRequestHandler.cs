@@ -9,7 +9,7 @@ namespace Identity.API.Application.User
 {
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, bool>
     {
-        private IServiceScopeFactory _serviceScopeFactory;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public CreateUserRequestHandler(IServiceScopeFactory serviceScopeFactory)
         {
@@ -18,13 +18,11 @@ namespace Identity.API.Application.User
 
         public async Task<bool> Handle(CreateUserRequest request, CancellationToken cancellationToken)
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var scopedServices = scope.ServiceProvider;
-                var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
-                var res = await userManager.CreateAsync(request.User, request.Password);
-                return res.Succeeded;
-            }
+            using var scope = _serviceScopeFactory.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+            var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+            var res = await userManager.CreateAsync(request.User, request.Password);
+            return res.Succeeded;
         }
     }
 }

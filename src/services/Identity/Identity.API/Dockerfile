@@ -11,7 +11,7 @@ RUN dotnet restore Identity.API/Identity.API.csproj
 COPY . .
 
 FROM build AS publish
-RUN dotnet publish Identity.API/Identity.API.csproj -c Release -o /app/publish --no-restore
+RUN dotnet publish Identity.API/Identity.API.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
