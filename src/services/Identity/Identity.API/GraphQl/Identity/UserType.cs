@@ -1,5 +1,5 @@
 using GraphQL;
-using Identity.Infrastructure.Models;
+using Identity.Data.Models;
 
 namespace Identity.API.GraphQl.Identity
 {

@@ -1,9 +1,9 @@
-using Identity.Infrastructure.Data;
-using Identity.Infrastructure.Helpers;
+using Identity.Data.Data;
+using Identity.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Identity.Infrastructure.Extensions
+namespace Identity.Data.Extensions
 {
     public static class ConfigureServices
     {

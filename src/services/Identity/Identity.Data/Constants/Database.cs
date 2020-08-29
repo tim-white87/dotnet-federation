@@ -1,4 +1,4 @@
-namespace Identity.Infrastructure.Constants
+namespace Identity.Data.Constants
 {
     public class Database
     {

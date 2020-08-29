@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Identity.Infrastructure.Models;
+using Identity.Data.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using GraphQL;
 using Identity.API.Application.User;
-using Identity.Infrastructure.Models;
+using Identity.Data.Models;
 using MediatR;
 
 namespace Identity.API.GraphQl.Identity

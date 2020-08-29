@@ -1,7 +1,7 @@
-using Identity.Infrastructure.Models;
+using Identity.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Infrastructure.Data
+namespace Identity.Data.Data
 {
     public class IdentityDbContext : DbContext
     {

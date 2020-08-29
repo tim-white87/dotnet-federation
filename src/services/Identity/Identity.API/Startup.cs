@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Identity.Infrastructure.Extensions;
-using Identity.Infrastructure.Models;
+using Identity.Data.Extensions;
+using Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using Identity.Infrastructure.Data;
+using Identity.Data.Data;
 using Identity.API.Application.User;
 
 namespace Identity.API

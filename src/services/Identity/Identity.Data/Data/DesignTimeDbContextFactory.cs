@@ -1,11 +1,11 @@
 using System;
-using Identity.Infrastructure.Constants;
-using Identity.Infrastructure.Helpers;
+using Identity.Data.Constants;
+using Identity.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Identity.Infrastructure.Data
+namespace Identity.Data.Data
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
     {

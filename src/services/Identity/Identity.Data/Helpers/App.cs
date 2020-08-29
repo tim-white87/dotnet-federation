@@ -1,8 +1,8 @@
 using System;
-using Identity.Infrastructure.Constants;
+using Identity.Data.Constants;
 using Microsoft.Extensions.Configuration;
 
-namespace Identity.Infrastructure.Helpers
+namespace Identity.Data.Helpers
 {
     public class App
     {
