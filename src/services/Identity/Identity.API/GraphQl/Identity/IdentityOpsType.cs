@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Identity.API.GraphQl.Identity
 {
-    public class IdentityMutation
+    [GraphQLMetadata("IdentityOps")]
+    public class IdentityOpsType
     {
         private readonly IMediator _mediator;
 
-        public IdentityMutation(IMediator mediator)
+        public IdentityOpsType(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -20,9 +21,9 @@ namespace Identity.API.GraphQl.Identity
         public async Task<AppUser> Login() => await _mediator.Send(new LoginUserRequest());
 
         [GraphQLMetadata("register")]
-        public bool Register()
+        public bool Register(string input)
         {
-            Console.WriteLine("register");
+            Console.WriteLine(input);
             return false;
             // return await _mediator.Send(new CreateUserRequest());
         }

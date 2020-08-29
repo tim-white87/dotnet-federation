@@ -1,4 +1,5 @@
 using System;
+using GraphQL;
 using GraphQL.Utilities;
 using Identity.API.GraphQl.Identity;
 using MediatR;
@@ -14,6 +15,7 @@ namespace Identity.API.GraphQl
             _serviceProvider = serviceProvider;
         }
 
-        public IdentityQuery Identity() => new IdentityQuery(_serviceProvider.GetRequiredService<IMediator>());
+        [GraphQLMetadata("identity")]
+        public IdentityType IdentityType() => new IdentityType(_serviceProvider.GetRequiredService<IMediator>());
     }
 }

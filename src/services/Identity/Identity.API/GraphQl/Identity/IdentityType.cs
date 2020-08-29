@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Identity.API.GraphQl.Identity
 {
-    public class IdentityQuery
+    [GraphQLMetadata("Identity")]
+    public class IdentityType
     {
         private readonly IMediator _mediator;
 
-        public IdentityQuery(IMediator mediator)
+        public IdentityType(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -19,10 +20,5 @@ namespace Identity.API.GraphQl.Identity
         [GraphQLMetadata("me")]
         public async Task<AppUser> GetMe() => await _mediator.Send(new GetUserRequest());
 
-        public bool Test(string input)
-        {
-            Console.WriteLine(input);
-            return false;
-        }
     }
 }

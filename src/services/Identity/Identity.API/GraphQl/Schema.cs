@@ -33,11 +33,11 @@ namespace Identity.API.GraphQl
 
             // Custom Types
             services.AddSingleton<Query>();
-            services.AddSingleton<IdentityQuery>();
+            services.AddSingleton<IdentityType>();
             services.AddSingleton<AccountType>();
 
             services.AddSingleton<Mutation>();
-            services.AddSingleton<IdentityMutation>();
+            services.AddSingleton<IdentityOpsType>();
             services.AddSingleton<RegisterInputType>();
         }
 
@@ -55,11 +55,11 @@ namespace Identity.API.GraphQl
                 _.ServiceProvider = serviceProvider;
 
                 _.Types.Include<Query>();
-                _.Types.Include<IdentityQuery>();
+                _.Types.Include<IdentityType>();
                 _.Types.Include<AccountType>();
 
                 _.Types.Include<Mutation>();
-                _.Types.Include<IdentityMutation>();
+                _.Types.Include<IdentityOpsType>();
                 _.Types.Include<RegisterInputType>();
             });
         }
