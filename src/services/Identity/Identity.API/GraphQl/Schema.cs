@@ -11,6 +11,11 @@ namespace Identity.API.GraphQl
 {
     public static class Schema
     {
+        /// <summary>
+        /// Extension of configuration that adds the types
+        /// and adds the built schema
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddSchema(this IServiceCollection services)
         {
             services.AddSchemaTypes();
@@ -34,11 +39,12 @@ namespace Identity.API.GraphQl
             // Custom Types
             services.AddSingleton<Query>();
             services.AddSingleton<IdentityType>();
-            services.AddSingleton<AccountType>();
+            services.AddSingleton<UserType>();
 
             services.AddSingleton<Mutation>();
             services.AddSingleton<IdentityOpsType>();
             services.AddSingleton<RegisterInputType>();
+            services.AddSingleton<LoginInputType>();
         }
 
         /// <summary>
@@ -56,11 +62,12 @@ namespace Identity.API.GraphQl
 
                 _.Types.Include<Query>();
                 _.Types.Include<IdentityType>();
-                _.Types.Include<AccountType>();
+                _.Types.Include<UserType>();
 
                 _.Types.Include<Mutation>();
                 _.Types.Include<IdentityOpsType>();
                 _.Types.Include<RegisterInputType>();
+                _.Types.Include<LoginInputType>();
             });
         }
     }

@@ -4,7 +4,7 @@ using Identity.Data.Models;
 namespace Identity.API.GraphQl.Identity
 {
     [GraphQLMetadata("User", IsTypeOf = typeof(AppUser))]
-    public class AccountType
+    public class UserType
     {
         /// <summary>
         /// Id field resolver

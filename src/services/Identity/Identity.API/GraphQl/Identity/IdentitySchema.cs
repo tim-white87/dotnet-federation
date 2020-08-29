@@ -16,8 +16,14 @@ namespace Identity.API.GraphQl.Identity
             }
 
             type IdentityOps {
-                login: User
-                register(input: RegisterInput): Boolean
+                login(input: LoginInput!): User
+                register(input: RegisterInput!): Boolean
+            }
+
+            type User @key(fields: ""id""){
+                id: ID!
+                name: String
+                username: String
             }
 
             input RegisterInput {
@@ -25,10 +31,9 @@ namespace Identity.API.GraphQl.Identity
                 password: String
             }
             
-            type User @key(fields: ""id""){
-                id: ID!
-                name: String
+            input LoginInput {
                 username: String
+                password: String
             }
             ";
     }
