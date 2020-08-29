@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  gateway:
+    image: dotnet-federation/gateway/gateway
+    build:
+      context: ./Gateway
+      args:
+        - NODE_ENV=development
+    depends_on:
+      - user
+    ports:
+      - 4000:4000
