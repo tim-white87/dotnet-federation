@@ -21,11 +21,9 @@ namespace Identity.API.GraphQl.Identity
         public async Task<AppUser> Login() => await _mediator.Send(new LoginUserRequest());
 
         [GraphQLMetadata("register")]
-        public bool Register(string input)
+        public async Task<bool> Register(RegisterInputType input)
         {
-            Console.WriteLine(input);
-            return false;
-            // return await _mediator.Send(new CreateUserRequest());
+            return await _mediator.Send(new CreateUserRequest(input));
         }
     }
 }

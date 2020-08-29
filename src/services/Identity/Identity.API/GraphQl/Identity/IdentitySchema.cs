@@ -17,10 +17,10 @@ namespace Identity.API.GraphQl.Identity
 
             type IdentityOps {
                 login: User
-                register(input: String): Boolean
+                register(input: RegisterInput): Boolean
             }
 
-            type RegisterInput {
+            input RegisterInput {
                 username: String
                 password: String
             }

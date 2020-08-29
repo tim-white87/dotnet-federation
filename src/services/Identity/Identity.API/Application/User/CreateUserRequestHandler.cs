@@ -24,9 +24,9 @@ namespace Identity.API.Application.User
             // TODO: automap
             var user = new AppUser
             {
-                UserName = request.Username
+                UserName = request.Input.Username
             };
-            var res = await userManager.CreateAsync(user, request.Password);
+            var res = await userManager.CreateAsync(user, request.Input.Password);
             return res.Succeeded;
         }
     }

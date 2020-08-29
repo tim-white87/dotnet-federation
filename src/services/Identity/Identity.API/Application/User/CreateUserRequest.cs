@@ -5,7 +5,11 @@ namespace Identity.API.Application.User
 {
     public class CreateUserRequest : IRequest<bool>
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public readonly RegisterInputType Input;
+
+        public CreateUserRequest(RegisterInputType input)
+        {
+            Input = input;
+        }
     }
 }
