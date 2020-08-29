@@ -1,4 +1,5 @@
 using System;
+using Identity.Infrastructure.Constants;
 using Microsoft.Extensions.Configuration;
 
 namespace Identity.Infrastructure.Helpers
@@ -26,6 +27,15 @@ namespace Identity.Infrastructure.Helpers
                     .AddEnvironmentVariables();
                 var configuration = builder.Build();
                 return configuration;
+            }
+        }
+
+        public static string DbConnectionString
+        {
+            get
+            {
+                return Environment.GetEnvironmentVariable(Database.IdentityConnectionStringEnvVarKey) ??
+                    Configuration.GetConnectionString(Database.IdentityConnectionStringKey);
             }
         }
     }

@@ -12,8 +12,7 @@ namespace Identity.Infrastructure.Data
         public IdentityDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
-            var connectionString = Environment.GetEnvironmentVariable(Database.IdentityConnectionStringEnvVarKey) ?? App.Configuration.GetConnectionString(Database.IdentityConnectionStringKey);
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(App.DbConnectionString);
             return new IdentityDbContext(optionsBuilder.Options);
         }
     }
