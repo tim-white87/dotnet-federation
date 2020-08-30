@@ -12,7 +12,6 @@ using Identity.Data.Extensions;
 using Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Identity.Data.Data;
-using Identity.API.Application.User;
 
 namespace Identity.API
 {
@@ -34,6 +33,9 @@ namespace Identity.API
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddIdentityServer()
+                .AddIdentityServerDbContex()
+                .AddAspNetIdentity<AppUser>();
             services.AddSchema();
             services.AddGraphQL(options =>
             {
@@ -54,6 +56,7 @@ namespace Identity.API
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
             app.UseGraphQL<ISchema>();
             app.UseRouting();
+            app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
