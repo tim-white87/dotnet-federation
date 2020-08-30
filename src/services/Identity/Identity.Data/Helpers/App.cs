@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Identity.Data.Constants;
 using Microsoft.Extensions.Configuration;
 
@@ -36,6 +37,14 @@ namespace Identity.Data.Helpers
             {
                 return Environment.GetEnvironmentVariable(Database.IdentityConnectionStringEnvVarKey) ??
                     Configuration.GetConnectionString(Database.IdentityConnectionStringKey);
+            }
+        }
+
+        public static string MigrationsAssembly
+        {
+            get
+            {
+                return typeof(App).GetTypeInfo().Assembly.GetName().Name;
             }
         }
     }

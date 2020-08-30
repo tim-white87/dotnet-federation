@@ -12,11 +12,13 @@ namespace Identity.Data.Extensions
                 App.DbConnectionString : connectionString;
             identityServerBuilder.AddConfigurationStore(options =>
                 {
-                    options.ConfigureDbContext = builder => builder.UseNpgsql(connectionString);
+                    options.ConfigureDbContext = builder => builder.UseNpgsql(connectionString,
+                        sql => sql.MigrationsAssembly(App.MigrationsAssembly));
                 })
                 .AddOperationalStore(options =>
                 {
-                    options.ConfigureDbContext = builder => builder.UseNpgsql(connectionString);
+                    options.ConfigureDbContext = builder => builder.UseNpgsql(connectionString,
+                        sql => sql.MigrationsAssembly(App.MigrationsAssembly));
                     options.EnableTokenCleanup = true;
                 });
             return identityServerBuilder;
