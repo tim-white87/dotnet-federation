@@ -2,7 +2,7 @@ using System.Threading;
 using Identity.Data.Models;
 using MediatR;
 
-namespace Identity.API.Application.User
+namespace Identity.Api.Application.User
 {
     public class LoginUserRequestHandler : IRequestHandler<LoginUserRequest, AppUser>
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using GraphQL;
-using Identity.API.Application.User;
+using Identity.Api.Application.User;
 using Identity.Data.Models;
 using MediatR;
 
-namespace Identity.API.GraphQl.Identity
+namespace Identity.Api.GraphQl.Identity
 {
     [GraphQLMetadata("Identity")]
     public class IdentityType

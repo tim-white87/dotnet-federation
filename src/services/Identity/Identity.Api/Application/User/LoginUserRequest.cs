@@ -1,8 +1,8 @@
-using Identity.API.GraphQl.Identity;
+using Identity.Api.GraphQl.Identity;
 using Identity.Data.Models;
 using MediatR;
 
-namespace Identity.API.Application.User
+namespace Identity.Api.Application.User
 {
     public class LoginUserRequest : IRequest<AppUser>
     {

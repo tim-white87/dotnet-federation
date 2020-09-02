@@ -4,7 +4,7 @@ using Identity.Data.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Identity.API.Application.User
+namespace Identity.Api.Application.User
 {
     public class GetUserRequestHandler : IRequestHandler<GetUserRequest, AppUser>
     {

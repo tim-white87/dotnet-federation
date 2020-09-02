@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Identity.API.Application.User
+namespace Identity.Api.Application.User
 {
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, bool>
     {

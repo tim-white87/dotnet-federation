@@ -1,10 +1,10 @@
 using System;
 using GraphQL;
 using GraphQL.Utilities;
-using Identity.API.GraphQl.Identity;
+using Identity.Api.GraphQl.Identity;
 using MediatR;
 
-namespace Identity.API.GraphQl
+namespace Identity.Api.GraphQl
 {
     public class Mutation
     {

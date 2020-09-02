@@ -4,10 +4,10 @@ using GraphQL;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using GraphQL.Utilities.Federation;
-using Identity.API.GraphQl.Identity;
+using Identity.Api.GraphQl.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Identity.API.GraphQl
+namespace Identity.Api.GraphQl
 {
     public static class Schema
     {

@@ -30,7 +30,7 @@ services:
     image: dotnet-federation/identity/api
     build:
       context: .
-      dockerfile: ./Identity.API/Dockerfile
+      dockerfile: ./Identity.Api/Dockerfile
     depends_on:
       - db
     ports:

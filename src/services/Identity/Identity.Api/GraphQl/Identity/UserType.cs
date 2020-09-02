@@ -1,7 +1,7 @@
 using GraphQL;
 using Identity.Data.Models;
 
-namespace Identity.API.GraphQl.Identity
+namespace Identity.Api.GraphQl.Identity
 {
     [GraphQLMetadata("User", IsTypeOf = typeof(AppUser))]
     public class UserType

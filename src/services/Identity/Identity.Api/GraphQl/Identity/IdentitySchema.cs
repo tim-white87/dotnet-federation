@@ -1,4 +1,4 @@
-namespace Identity.API.GraphQl.Identity
+namespace Identity.Api.GraphQl.Identity
 {
     public class IdentitySchema
     {

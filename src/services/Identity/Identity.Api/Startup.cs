@@ -1,7 +1,7 @@
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
-using Identity.API.GraphQl;
+using Identity.Api.GraphQl;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Identity.Data.Data;
 
-namespace Identity.API
+namespace Identity.Api
 {
     public class Startup
     {
