@@ -1,8 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using GraphQL;
-using Identity.Api.Application.User;
 using Identity.Data.Models;
+using Identity.Service.User.Query;
 using MediatR;
 
 namespace Identity.Api.GraphQl.Identity
@@ -18,7 +17,7 @@ namespace Identity.Api.GraphQl.Identity
         }
 
         [GraphQLMetadata("me")]
-        public async Task<AppUser> GetMe() => await _mediator.Send(new GetUserRequest());
+        public async Task<AppUser> GetMe() => await _mediator.Send(new GetUserQuery());
 
     }
 }

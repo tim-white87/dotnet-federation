@@ -1,12 +1,12 @@
 using System.Threading;
-using Identity.Data.Models;
+using System.Threading.Tasks;
 using MediatR;
 
-namespace Identity.Api.Application.User
+namespace Identity.Service.User.Command
 {
-    public class LoginUserRequestHandler : IRequestHandler<LoginUserRequest, AppUser>
+    public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, AppUser>
     {
-        public System.Threading.Tasks.Task<AppUser> Handle(LoginUserRequest request, CancellationToken cancellationToken)
+        public Task<AppUser> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

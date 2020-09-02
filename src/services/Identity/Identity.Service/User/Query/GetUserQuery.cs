@@ -1,9 +1,9 @@
 using Identity.Data.Models;
 using MediatR;
 
-namespace Identity.Api.Application.User
+namespace Identity.Service.User.Query
 {
-    public class GetUserRequest : IRequest<AppUser>
+    public class GetUserQuery : IRequest<AppUser>
     {
 
     }

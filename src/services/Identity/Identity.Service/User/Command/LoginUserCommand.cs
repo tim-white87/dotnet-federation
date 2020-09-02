@@ -1,16 +1,15 @@
-using Identity.Api.GraphQl.Identity;
-using Identity.Data.Models;
+using Identity.Service.User.Models;
 using MediatR;
 
-namespace Identity.Api.Application.User
+namespace Identity.Service.User.Command
 {
-    public class LoginUserRequest : IRequest<AppUser>
+    public class LoginUserCommand : IRequest<AppUser>
     {
-        public readonly LoginInputType Input;
+        public readonly LoginUserModel User;
 
-        public LoginUserRequest(LoginInputType input)
+        public LoginUserCommand(LoginUserModel user)
         {
-            Input = input;
+            User = user;
         }
     }
 }
