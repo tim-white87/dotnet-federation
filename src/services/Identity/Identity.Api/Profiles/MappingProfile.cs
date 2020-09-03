@@ -1,4 +1,6 @@
 using AutoMapper;
+using Identity.Api.GraphQl.Identity;
+using Identity.Service.User.Models;
 
 namespace Identity.Api.Profiles
 {
@@ -6,8 +8,8 @@ namespace Identity.Api.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<CreateUserModel, RegisterInputType>();
-            CreateMap<LoginUserModel, LoginInputType>();
+            CreateMap<RegisterInputType, CreateUserModel>();
+            CreateMap<LoginInputType, LoginUserModel>();
         }
     }
 }
