@@ -44,7 +44,9 @@ namespace Identity.Api
                 options.EnableMetrics = Environment.IsDevelopment();
                 options.ExposeExceptions = Environment.IsDevelopment();
             })
-                .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { });
+                .AddSystemTextJson(
+                    deserializerSettings => { },
+                    serializerSettings => { });
             services.AddControllers();
         }
 
@@ -59,6 +61,7 @@ namespace Identity.Api
             app.UseGraphQL<ISchema>();
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

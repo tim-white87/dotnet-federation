@@ -1,10 +1,9 @@
-using Identity.Data.Models;
 using Identity.Service.User.Models;
 using MediatR;
 
 namespace Identity.Service.User.Command
 {
-    public class LoginUserCommand : IRequest<AppUser>
+    public class LoginUserCommand : IRequest<bool>
     {
         public readonly LoginUserModel User;
 

@@ -16,7 +16,7 @@ namespace Identity.Api.GraphQl.Identity
             }
 
             type IdentityOps {
-                login(input: LoginInput!): User
+                login(input: LoginInput!): Boolean
                 register(input: RegisterInput!): Boolean
             }
 

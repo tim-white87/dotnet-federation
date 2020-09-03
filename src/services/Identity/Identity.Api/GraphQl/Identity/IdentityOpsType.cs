@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using GraphQL;
-using Identity.Data.Models;
 using Identity.Service.User.Command;
 using Identity.Service.User.Models;
 using MediatR;
@@ -21,7 +20,7 @@ namespace Identity.Api.GraphQl.Identity
         }
 
         [GraphQLMetadata("login")]
-        public async Task<AppUser> Login(LoginInputType input) => await _mediator.Send(new LoginUserCommand(_mapper.Map<LoginUserModel>(input)));
+        public async Task<bool> Login(LoginInputType input) => await _mediator.Send(new LoginUserCommand(_mapper.Map<LoginUserModel>(input)));
 
         [GraphQLMetadata("register")]
         public async Task<bool> Register(RegisterInputType input) => await _mediator.Send(new CreateUserCommand(_mapper.Map<CreateUserModel>(input)));
