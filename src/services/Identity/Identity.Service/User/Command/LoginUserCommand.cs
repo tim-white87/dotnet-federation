@@ -1,3 +1,4 @@
+using Identity.Data.Models;
 using Identity.Service.User.Models;
 using MediatR;
 

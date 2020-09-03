@@ -12,6 +12,7 @@ using Identity.Data.Extensions;
 using Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Identity.Data.Data;
+using AutoMapper;
 
 namespace Identity.Api
 {
@@ -29,6 +30,7 @@ namespace Identity.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
             services.AddIdentityDbContext();
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>()

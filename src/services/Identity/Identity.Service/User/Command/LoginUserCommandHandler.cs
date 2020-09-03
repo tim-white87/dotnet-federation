@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Identity.Data.Models;
 using MediatR;
 
 namespace Identity.Service.User.Command
