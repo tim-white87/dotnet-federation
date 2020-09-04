@@ -1,10 +1,11 @@
+using Identity.Data.Data;
 using Identity.Data.Helpers;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Identity.Data.Data
+namespace Identity.Data.Migrations
 {
     public class IdentityDesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {

@@ -37,7 +37,7 @@ namespace Identity.Api
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddIdentityServer()
-                .AddIdentityServerDbContex()
+                .AddIdentityServerStores()
                 .AddAspNetIdentity<AppUser>();
             services.AddSchema();
             services.AddGraphQL(options =>

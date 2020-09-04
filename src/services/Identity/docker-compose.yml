@@ -22,7 +22,7 @@ services:
     entrypoint:
       - sh
       - -c
-      - '/wait-for.sh db:5432 -- dotnet ef database update --context ApplicationDbContext'
+      - '/wait-for.sh db:5432 -- make up'
     environment:
       - 'DOTNET_ConnectionStrings__IdentityConnection=Host=db;Database=identity;Username=postgres;Password=${POSTGRES_PASSWORD}'
 

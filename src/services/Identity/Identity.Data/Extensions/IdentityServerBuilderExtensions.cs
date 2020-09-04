@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Data.Extensions
 {
-    public static class IdentityServerBuilder
+    public static class IdentityServerBuilderExtensions
     {
-        public static IIdentityServerBuilder AddIdentityServerDbContex(this IIdentityServerBuilder identityServerBuilder, string connectionString = null)
+        public static IIdentityServerBuilder AddIdentityServerStores(this IIdentityServerBuilder identityServerBuilder, string connectionString = null)
         {
             connectionString = string.IsNullOrEmpty(connectionString) ?
                 App.DbConnectionString : connectionString;

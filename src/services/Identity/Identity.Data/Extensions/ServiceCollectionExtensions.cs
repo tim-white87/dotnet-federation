@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Data.Extensions
 {
-    public static class ConfigureServices
+    public static class ServiceCollectionExtensions
     {
         public static void AddApplicationDbContext(this IServiceCollection services, string connectionString = null)
         {
