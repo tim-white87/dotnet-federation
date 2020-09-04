@@ -38,7 +38,12 @@ namespace Identity.Api
                 .AddDefaultTokenProviders();
             services.AddIdentityServer()
                 .AddIdentityServerStores()
-                .AddAspNetIdentity<AppUser>();
+                // .AddDeveloperSigningCredential()
+                // .AddInMemoryIdentityResources(Config.Ids)
+                // .AddInMemoryApiResources(Config.Apis)
+                // .AddInMemoryClients(Config.Clients)
+                .AddAspNetIdentity<AppUser>()
+                .AddJwtBearerClientAuthentication(); ;
             services.AddSchema();
             services.AddGraphQL(options =>
             {
@@ -48,6 +53,7 @@ namespace Identity.Api
                 .AddSystemTextJson(
                     deserializerSettings => { },
                     serializerSettings => { });
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -64,6 +70,11 @@ namespace Identity.Api
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
+            // app.UseCors(builder => builder
+            //     .WithOrigins(Configuration.GetSection("AllowedCorsOrigins").Get<string[]>())
+            //     .AllowCredentials()
+            //     .AllowAnyHeader()
+            //     .AllowAnyMethod());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
