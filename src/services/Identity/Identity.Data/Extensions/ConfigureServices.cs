@@ -7,11 +7,11 @@ namespace Identity.Data.Extensions
 {
     public static class ConfigureServices
     {
-        public static void AddIdentityDbContext(this IServiceCollection services, string connectionString = null)
+        public static void AddApplicationDbContext(this IServiceCollection services, string connectionString = null)
         {
             connectionString = string.IsNullOrEmpty(connectionString) ?
                 App.DbConnectionString : connectionString;
-            services.AddDbContext<IdentityDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
         }
     }

@@ -32,9 +32,9 @@ namespace Identity.Api
         {
             services.AddMediatR(typeof(Startup), typeof(CreateUserModel));
             services.AddAutoMapper(typeof(Startup));
-            services.AddIdentityDbContext();
+            services.AddApplicationDbContext();
             services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddIdentityServer()
                 .AddIdentityServerDbContex()
