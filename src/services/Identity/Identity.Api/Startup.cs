@@ -68,6 +68,7 @@ namespace Identity.Api
             app.UseGraphQL<ISchema>();
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseIdentityServerConfigs();
             app.UseAuthentication();
             app.UseAuthorization();
             // app.UseCors(builder => builder

@@ -1,5 +1,5 @@
 using Identity.Data.Data;
-using Identity.Data.Helpers;
+using Identity.Data.Config;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ namespace Identity.Data.Migrations
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseNpgsql(App.DbConnectionString);
+            optionsBuilder.UseNpgsql(AppConfig.DbConnectionString);
             return new ApplicationDbContext(optionsBuilder.Options);
         }
     }
@@ -22,8 +22,8 @@ namespace Identity.Data.Migrations
         public ConfigurationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ConfigurationDbContext>();
-            optionsBuilder.UseNpgsql(App.DbConnectionString,
-                sql => sql.MigrationsAssembly(App.MigrationsAssembly));
+            optionsBuilder.UseNpgsql(AppConfig.DbConnectionString,
+                sql => sql.MigrationsAssembly(AppConfig.MigrationsAssembly));
             return new ConfigurationDbContext(optionsBuilder.Options, new ConfigurationStoreOptions());
         }
     }
@@ -33,8 +33,8 @@ namespace Identity.Data.Migrations
         public PersistedGrantDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<PersistedGrantDbContext>();
-            optionsBuilder.UseNpgsql(App.DbConnectionString,
-                sql => sql.MigrationsAssembly(App.MigrationsAssembly));
+            optionsBuilder.UseNpgsql(AppConfig.DbConnectionString,
+                sql => sql.MigrationsAssembly(AppConfig.MigrationsAssembly));
             return new PersistedGrantDbContext(optionsBuilder.Options, new OperationalStoreOptions());
         }
     }

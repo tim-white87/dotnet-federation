@@ -3,9 +3,9 @@ using System.Reflection;
 using Identity.Data.Constants;
 using Microsoft.Extensions.Configuration;
 
-namespace Identity.Data.Helpers
+namespace Identity.Data.Config
 {
-    public class App
+    public static class AppConfig
     {
         public static string EnvironmentName
         {
@@ -44,7 +44,7 @@ namespace Identity.Data.Helpers
         {
             get
             {
-                return typeof(App).GetTypeInfo().Assembly.GetName().Name;
+                return typeof(AppConfig).GetTypeInfo().Assembly.GetName().Name;
             }
         }
     }
