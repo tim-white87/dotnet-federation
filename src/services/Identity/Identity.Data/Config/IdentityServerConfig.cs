@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 
 namespace Identity.Data.Config
@@ -39,5 +42,74 @@ namespace Identity.Data.Config
                     AllowedScopes = { "openid", "profile" }
                 }
             };
+
+        /// <summary>
+        /// Adds/Updates the configuration DB context 
+        /// with the static Identity Resource configurations defined in code.
+        /// Persists this to the store.
+        /// </summary>
+        /// <param name="context"></param>
+        public static void SaveIdentityResources(ConfigurationDbContext context)
+        {
+            foreach (var resource in IdentityResources)
+            {
+                var savedResource = context.IdentityResources.First(r => r.Name == resource.Name);
+                if (savedResource == null)
+                {
+                    context.IdentityResources.Add(resource.ToEntity());
+                }
+                else
+                {
+                    savedResource = resource.ToEntity();
+                }
+            }
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds/Updates the configuration DB context 
+        /// with the static API Resource configurations defined in code.
+        /// Persists this to the store.
+        /// </summary>
+        /// <param name="context"></param>
+        public static void SaveApis(ConfigurationDbContext context)
+        {
+            foreach (var resource in Apis)
+            {
+                var savedResource = context.ApiResources.First(r => r.Name == resource.Name);
+                if (savedResource == null)
+                {
+                    context.ApiResources.Add(resource.ToEntity());
+                }
+                else
+                {
+                    savedResource = resource.ToEntity();
+                }
+            }
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds/Updates the configuration DB context 
+        /// with the static Client configurations defined in code.
+        /// Persists this to the store.
+        /// </summary>
+        /// <param name="context"></param>
+        public static void SaveClients(ConfigurationDbContext context)
+        {
+            foreach (var client in Clients)
+            {
+                var savedClient = context.Clients.First(c => c.ClientId == client.ClientId);
+                if (savedClient == null)
+                {
+                    context.Clients.Add(client.ToEntity());
+                }
+                else
+                {
+                    savedClient = client.ToEntity();
+                }
+            }
+            context.SaveChanges();
+        }
     }
 }

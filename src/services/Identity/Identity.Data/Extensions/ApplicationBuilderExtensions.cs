@@ -13,34 +13,12 @@ namespace Identity.Data.Extensions
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-            if (!context.Clients.Any())
-            {
-                foreach (var client in IdentityServerConfig.Clients)
-                {
-                    context.Clients.Add(client.ToEntity());
-                }
-                context.SaveChanges();
-            }
-
-            if (!context.IdentityResources.Any())
-            {
-                foreach (var resource in IdentityServerConfig.IdentityResources)
-                {
-                    context.IdentityResources.Add(resource.ToEntity());
-                }
-                context.SaveChanges();
-            }
-
-            if (!context.ApiResources.Any())
-            {
-                foreach (var resource in IdentityServerConfig.Apis)
-                {
-                    context.ApiResources.Add(resource.ToEntity());
-                }
-                context.SaveChanges();
-            }
-
+            IdentityServerConfig.SaveIdentityResources(context);
+            IdentityServerConfig.SaveApis(context);
+            IdentityServerConfig.SaveClients(context);
             return app;
         }
+
+
     }
 }
