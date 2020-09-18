@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityModel;
@@ -9,6 +10,10 @@ namespace Identity.Data.Models
     {
         public string Name { get; set; }
         public string SubjectId { get; set; }
-        public ICollection<Claim> Claims { get; set; } = new HashSet<Claim>(new ClaimComparer());
+
+        public AppUser() : base()
+        {
+            SubjectId = Guid.NewGuid().ToString();
+        }
     }
 }
