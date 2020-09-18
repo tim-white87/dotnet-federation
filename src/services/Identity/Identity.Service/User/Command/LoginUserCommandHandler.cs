@@ -56,6 +56,8 @@ namespace Identity.Service.User.Command
             try
             {
                 await _httpContextAccessor.HttpContext.SignInAsync(isuser, props);
+                var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+                Console.WriteLine($"token: {token}");
                 return true;
             }
             catch (Exception e)

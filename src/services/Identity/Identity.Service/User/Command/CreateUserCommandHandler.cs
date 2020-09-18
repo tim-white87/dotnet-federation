@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Identity.Data.Models;
+using IdentityModel;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,8 +35,8 @@ namespace Identity.Service.User.Command
                 //     await _roleManager.CreateAsync(new IdentityRole(role));
                 // }
                 // await userManager.AddToRoleAsync(user, role);
-                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("sub", user.SubjectId));
-                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", user.UserName));
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.Subject, user.SubjectId));
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.Name, user.UserName));
                 // await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
             }
             return res.Succeeded;
