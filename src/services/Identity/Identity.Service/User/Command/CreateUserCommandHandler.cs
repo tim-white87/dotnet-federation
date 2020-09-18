@@ -27,6 +27,17 @@ namespace Identity.Service.User.Command
                 UserName = command.User.Username
             };
             var res = await userManager.CreateAsync(user, command.User.Password);
+            if (res.Succeeded)
+            {
+                // if (await _roleManager.FindByNameAsync(role) == null)
+                // {
+                //     await _roleManager.CreateAsync(new IdentityRole(role));
+                // }
+                // await userManager.AddToRoleAsync(user, role);
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
+                // await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
+            }
             return res.Succeeded;
         }
     }

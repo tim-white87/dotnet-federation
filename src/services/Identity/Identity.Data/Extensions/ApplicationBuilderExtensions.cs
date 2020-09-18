@@ -1,7 +1,5 @@
-using System.Linq;
 using Identity.Data.Config;
 using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +16,5 @@ namespace Identity.Data.Extensions
             IdentityServerConfig.SaveClients(context);
             return app;
         }
-
-
     }
 }

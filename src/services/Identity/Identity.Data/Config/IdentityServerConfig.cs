@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
@@ -16,7 +17,10 @@ namespace Identity.Data.Config
             };
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[] { };
+            new ApiResource[]
+            {
+                new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+            };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
@@ -39,7 +43,12 @@ namespace Identity.Data.Config
                     },
                     PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
                     AllowedCorsOrigins = { "http://localhost:5002" },
-                    AllowedScopes = { "openid", "profile" }
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.LocalApi.ScopeName
+                    }
                 }
             };
 
@@ -53,7 +62,7 @@ namespace Identity.Data.Config
         {
             foreach (var resource in IdentityResources)
             {
-                var savedResource = context.IdentityResources.First(r => r.Name == resource.Name);
+                var savedResource = context.IdentityResources.FirstOrDefault(r => r.Name == resource.Name);
                 if (savedResource == null)
                 {
                     context.IdentityResources.Add(resource.ToEntity());
@@ -76,7 +85,7 @@ namespace Identity.Data.Config
         {
             foreach (var resource in Apis)
             {
-                var savedResource = context.ApiResources.First(r => r.Name == resource.Name);
+                var savedResource = context.ApiResources.FirstOrDefault(r => r.Name == resource.Name);
                 if (savedResource == null)
                 {
                     context.ApiResources.Add(resource.ToEntity());
@@ -99,7 +108,7 @@ namespace Identity.Data.Config
         {
             foreach (var client in Clients)
             {
-                var savedClient = context.Clients.First(c => c.ClientId == client.ClientId);
+                var savedClient = context.Clients.FirstOrDefault(c => c.ClientId == client.ClientId);
                 if (savedClient == null)
                 {
                     context.Clients.Add(client.ToEntity());

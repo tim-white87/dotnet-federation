@@ -36,14 +36,13 @@ namespace Identity.Api
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddAuthentication();
             services.AddIdentityServer()
                 .AddIdentityServerStores()
-                // .AddDeveloperSigningCredential()
-                // .AddInMemoryIdentityResources(Config.Ids)
-                // .AddInMemoryApiResources(Config.Apis)
-                // .AddInMemoryClients(Config.Clients)
+                .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<AppUser>()
-                .AddJwtBearerClientAuthentication(); ;
+                .AddJwtBearerClientAuthentication();
+            services.AddLocalApiAuthentication();
             services.AddSchema();
             services.AddGraphQL(options =>
             {
@@ -54,6 +53,7 @@ namespace Identity.Api
                     deserializerSettings => { },
                     serializerSettings => { });
             services.AddCors();
+            services.AddHttpContextAccessor();
             services.AddControllers();
         }
 

@@ -5,11 +5,11 @@ namespace Identity.Service.User.Command
 {
     public class LoginUserCommand : IRequest<bool>
     {
-        public readonly LoginUserModel User;
+        public readonly LoginUserModel LoginUserModel;
 
         public LoginUserCommand(LoginUserModel user)
         {
-            User = user;
+            LoginUserModel = user;
         }
     }
 }
