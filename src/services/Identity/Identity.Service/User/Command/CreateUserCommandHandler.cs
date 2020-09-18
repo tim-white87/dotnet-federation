@@ -34,8 +34,8 @@ namespace Identity.Service.User.Command
                 //     await _roleManager.CreateAsync(new IdentityRole(role));
                 // }
                 // await userManager.AddToRoleAsync(user, role);
-                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
-                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("sub", user.SubjectId));
+                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", user.UserName));
                 // await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
             }
             return res.Succeeded;
